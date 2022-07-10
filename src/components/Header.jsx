@@ -10,7 +10,6 @@ const Header = ({ text, bgColor, textColor }) => {
       <div className='container'>
         <Link
           to='/'
-          className='about-link'
           style={{ textDecoration: 'none', color: 'inherit' }}
         >
           <h2>{text}</h2>

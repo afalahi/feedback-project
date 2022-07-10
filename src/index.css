@@ -16,7 +16,16 @@ body {
 ul {
   list-style: none;
 }
-
+/* #root {
+  min-height: 100vh;
+  display: flex;
+  
+} */
+.content {
+  display: flex;
+  flex-direction: column;
+  min-height: 88vh;
+}
 .container {
   max-width: 768px;
   margin: auto;
@@ -190,6 +199,8 @@ input:focus {
 .about-link {
   display: flex;
   justify-content: flex-end;
+  padding: 0 20px 20px 0;
+  align-self: flex-end;
 }
 
 /* FIX: Remove position: absolute to keep about icon at the bottom of the

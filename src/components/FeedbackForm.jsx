@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import RatingSelect from './RatingSelect';
 import Button from './shared/Button';
@@ -6,9 +6,17 @@ import Card from './shared/Card';
 import FeedbackContext from '../context/FeedbackContext';
 
 const FeedbackForm = () => {
-  const {addFeedback} = useContext(FeedbackContext)
+  const { addFeedback, feedbackEdit, updateFeedback } =
+    useContext(FeedbackContext);
   const [text, setText] = useState('');
   const [rating, setRating] = useState(5);
+
+  useEffect(() => {
+    if (feedbackEdit.edit) {
+      setText(feedbackEdit.item.text);
+      setRating(feedbackEdit.item.rating);
+    }
+  }, [feedbackEdit]);
 
   const handleTextChange = e => {
     setText(e.target.value);
@@ -20,7 +28,9 @@ const FeedbackForm = () => {
         text,
         rating,
       };
-      addFeedback(newFeedback);
+      feedbackEdit.edit
+        ? updateFeedback(feedbackEdit.item.id, newFeedback)
+        : addFeedback(newFeedback);
     }
     setText('');
   };
@@ -37,7 +47,7 @@ const FeedbackForm = () => {
             value={text}
           />
           <Button type='submit' isDisabled={text.length < 10}>
-            Send
+            {feedbackEdit.edit ? 'Update' : 'Send'}
           </Button>
         </div>
         <p className='text-center message'>
